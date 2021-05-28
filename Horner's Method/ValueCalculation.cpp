@@ -98,7 +98,7 @@ std::pair<int, int> ValueCalculation::HornerRange(std::deque<double>& polynomina
             break;
         }
 
-        lower_bound -= precision;
+        lower_bound += precision;
     }
 
     std::cout << lower_bound << std::endl;
@@ -131,7 +131,7 @@ double ValueCalculation::LowerFinder(std::deque<double>& polynominal, int i)
     int degree = polynominal.size() - 1;
     double value = polynominal[0];
     i = -i;
-    std::deque<double> cpy;
+    std::deque<double> cpy = polynominal;
 
     if (degree % 2)
     {
@@ -140,11 +140,13 @@ double ValueCalculation::LowerFinder(std::deque<double>& polynominal, int i)
             cpy[it] = -polynominal[it];
         }
     }
-    
 
+    std::cout << degree << std::endl;
+
+    value = cpy[0];
     for (int it = 1; it < degree; it++)
     {
-        value = value * i + it;
+        value = value * i + cpy[it];
         if (value < 0)
         {
             return 1;  // Not right
