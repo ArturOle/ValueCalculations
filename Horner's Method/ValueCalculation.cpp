@@ -68,16 +68,12 @@ float ValueCalculation::HornerPrecision(int degree, int x_in, float desired_prec
 
 std::pair<double, double> ValueCalculation::HornerRange(std::deque<double>& polynominal, int x, float precision)
 {
-    double lower_bound = 0;
+    double lower_bound;
     double upper_bound = precision;
 
     while (true)
     {
-        double beta;
-
-        beta = UpperFinder(polynominal, upper_bound);
-
-        if (beta > 0)
+        if ( UpperFinder(polynominal, upper_bound) > 0 )
         {
             break;
         }
@@ -86,14 +82,11 @@ std::pair<double, double> ValueCalculation::HornerRange(std::deque<double>& poly
     }
     std::cout << upper_bound << std::endl;
 
-    lower_bound = upper_bound-1;
+    lower_bound = upper_bound;
 
     while (true)
     {
-        double value;
-
-        value = LowerFinder(polynominal, lower_bound);
-        if (value > 0)
+        if ( LowerFinder(polynominal, lower_bound) > 0 )
         {
             break;
         }
@@ -105,7 +98,7 @@ std::pair<double, double> ValueCalculation::HornerRange(std::deque<double>& poly
 }
 
 
-double ValueCalculation::UpperFinder(std::deque<double>& polynominal, double i)
+bool ValueCalculation::UpperFinder(std::deque<double>& polynominal, double i)
 {
     double beta = polynominal[0];
     int degree = polynominal.size() - 1;
@@ -114,30 +107,29 @@ double ValueCalculation::UpperFinder(std::deque<double>& polynominal, double i)
     for (int it = 1; it < degree; it++)
     {
         // New value is value times x plus value at it
-        beta =  i*beta + polynominal[it];
+        beta = i * beta + polynominal[it];
 
         if (beta < 0)
         {
-            return -1;
+            return false;
         }
     }
 
-    return i;
+    return true;
 
 }
 
 
-double ValueCalculation::LowerFinder(std::deque<double>& polynominal, double i)
+bool ValueCalculation::LowerFinder(std::deque<double> cpy, double i)
 {
     int degree = polynominal.size()-1;
     double alfa;
-    std::deque<double> cpy = polynominal;
 
     if (degree % 2) 
     {
          for (int it = 0; it < degree; it++)
          {
-             cpy[it] = -polynominal[it];
+             cpy[it] = -cpy[it];
          }
     }
 
@@ -147,7 +139,7 @@ double ValueCalculation::LowerFinder(std::deque<double>& polynominal, double i)
 
         if (it % 2)
         {
-            value =  (i) + cpy[it];
+            value = (i) + cpy[it];
         }
         else
         {
@@ -156,12 +148,12 @@ double ValueCalculation::LowerFinder(std::deque<double>& polynominal, double i)
 
         if (value < 0)
         {
-            return -1;  // Not right
+            return false;  // Not right
         }
 
     }
     
-    return i;
+    return true;
 }
 
 
