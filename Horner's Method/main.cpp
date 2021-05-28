@@ -1,4 +1,4 @@
-#include "ValueCalculation.h"
+#include "ValueCalculation.cpp"
 #include <iostream>
 #include <chrono>
 

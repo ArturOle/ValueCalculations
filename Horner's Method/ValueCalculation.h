@@ -13,8 +13,8 @@ public:
 	static float HornerPrecision(std::deque<double> polynominal, int x_in, float desired_precision);
 	static float HornerPrecision(int degree, int x_in, float desired_precision);
 	static std::pair<double, double> HornerRange(std::deque<double>& polynominal, int x, float precision);
-	static double UpperFinder(std::deque<double>& polynominal, double i);
-	static double LowerFinder(std::deque<double>& polynominal, double i);
+	static bool UpperFinder(std::deque<double>& polynominal, double i);
+	static bool LowerFinder(std::deque<double> polynominal, double i);
 
 	static double TylorMethod(std::deque<double> &polynominal, int x, int n);
 
