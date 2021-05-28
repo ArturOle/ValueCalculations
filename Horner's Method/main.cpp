@@ -13,7 +13,7 @@ int main()
 	float precision;
 	
 	precision = ValueCalculation::HornerPrecision(polynominal, x, 0.0001);
-	range_of_roots = ValueCalculation::HornerRange(polynominal, x, precision=1);
+	range_of_roots = ValueCalculation::HornerRange(polynominal, x, precision=0.25);
 	result_horner = ValueCalculation::HornerMethod(polynominal, x);
 
 	std::cout << result_horner << std::endl;
