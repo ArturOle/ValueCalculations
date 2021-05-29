@@ -172,7 +172,7 @@ double ValueCalculation::TylorMethod_e(double x, int n)
 		std::cout << "Iteration " << i << ": " << result << std::endl;
 	}
 
-	std::cout << "Result of exp(x) at x = " << x << " is: \e[4m" <<  result << "\e[0m" << std::endl;
+	std::cout << "Result of exp(x) at x = " << x << " is: " <<  result << "" << std::endl;
 	return result;
 }
 
@@ -218,7 +218,7 @@ double ValueCalculation::TylorMethod_e(double x, double precision=0.001)
 		i++;
 	}
 
-	std::cout << "Result of exp(x) at x = " << x << " is: \e[4m" << result << "\e[0m, after " << i << " iterations\n" << std::endl;
+	std::cout << "Result of exp(x) at x = " << x << " is: " << result << ", after " << i << " iterations\n" << std::endl;
 	return result;
 }
 
