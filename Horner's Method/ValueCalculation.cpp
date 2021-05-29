@@ -42,7 +42,7 @@ float ValueCalculation::HornerPrecision(std::deque<double> polynominal, int x_in
 		--result;
 	}
 
-	std::cout << result << std::endl;
+	std::cout << "Precision: 1E" << result << std::endl;
 
 	return precision;
 }
@@ -59,7 +59,7 @@ float ValueCalculation::HornerPrecision(int degree, int x_in, float desired_prec
 		--result;
 	}
 
-	std::cout << result << std::endl;
+	std::cout << "Precision: 1E" << result << std::endl;
 
 	return result;
 }
@@ -100,7 +100,6 @@ std::pair<double, double> ValueCalculation::HornerRange(std::deque<double>& poly
 bool ValueCalculation::UpperFinder(std::deque<double>& polynominal, double i)
 {
 	double beta = polynominal[0];
-	int degree = polynominal.size() - 1;
 
 	// Iterating over polynominal with constant iterator because it's read only
 	for (auto it = polynominal.cbegin() + 1; it != polynominal.cend(); ++it)
@@ -125,7 +124,6 @@ bool ValueCalculation::LowerFinder(std::deque<double> cpy, double i)
 	double alpha;
 
 	// Invert every second term [considering (-1)^n and Wn(-x)]
-	// TODO: optimise the iterator
 	for (auto it = cpy.begin() + 1; it < cpy.end()-1; it+=2)
 	{
 		*it = -*it;
@@ -171,11 +169,10 @@ double ValueCalculation::TylorMethod_e(double x, int n)
 		result = result + x_calculation / factorial;
 
 		// Showing the result at every iteration
-		std::cout << "Result at iteration " << i << std::endl;
-		std::cout << result << std::endl;
+		std::cout << "Iteration " << i << ": " << result << std::endl;
 	}
 
-	std::cout << "result of exp(x) at x = " << x << "\n" <<  result << std::endl;
+	std::cout << "Result of exp(x) at x = " << x << " is: \e[4m" <<  result << "\e[0m" << std::endl;
 	return result;
 }
 
@@ -206,7 +203,7 @@ double ValueCalculation::TylorMethod_e(double x, double precision=0.001)
 		temp = result + x_calculation / factorial;		
 
 		// Checking if delta is smaller than desired precision
-		if (abs(temp - result) < precision)
+		if (std::abs(temp - result) < precision)
 		{
 			result = temp;
 			break;
@@ -217,13 +214,11 @@ double ValueCalculation::TylorMethod_e(double x, double precision=0.001)
 		}
 
 		// Showing the result at every iteration
-		std::cout << "Result at iteration " << i << std::endl;
-		std::cout << result << std::endl;
+		std::cout << "Iteration " << i << ": " << result << std::endl;
 		i++;
 	}
 
-	std::cout << "result of exp(x) at x = " << x << "\n" << result << std::endl;
-	std::cout << "After " << i << " iterations\n" << std::endl;
+	std::cout << "Result of exp(x) at x = " << x << " is: \e[4m" << result << "\e[0m, after " << i << " iterations\n" << std::endl;
 	return result;
 }
 
