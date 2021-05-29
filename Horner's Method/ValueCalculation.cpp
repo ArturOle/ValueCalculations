@@ -149,16 +149,20 @@ bool ValueCalculation::LowerFinder(std::deque<double> cpy, double i)
 }
 
 
-double ValueCalculation::TylorMethod_e(int x, int n)
+double ValueCalculation::TylorMethod_e(double x, double n)
 {
 	double result = 1;
 	double factorial = 1;
-	for (int i = 1; i < n; i++) 
+	double x_calculation = x;
+
+	for (int i = 1; i < n+1; i++) 
 	{
-		x = x * x;
+		std::cout << "Result at iteration " << i << std::endl;
+		x_calculation = x_calculation * x_calculation;
 		factorial = factorial * i;
 		result = result + x / factorial;
+		std::cout << result << std::endl;
 	}
-	std::cout << result << std::endl;
+	std::cout << "result of exp(x) at x = " << x << "\n" <<  result << std::endl;
 	return result;
 }
