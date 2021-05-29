@@ -149,18 +149,29 @@ bool ValueCalculation::LowerFinder(std::deque<double> cpy, double i)
 }
 
 
-double ValueCalculation::TylorMethod_e(double x, double n)
+double ValueCalculation::TylorMethod_e(double x, int n)
 {
+	/// Summary:
+	/// An implementation of the Tylor serie of the function exponent of x with 
+	/// 
+	/// x - choosen x value for the function
+	/// n - number of iteration
+	/// result - The value of the function at given x with after given number of iterations
+	
 	double result = 1;
 	double factorial = 1;
 	double x_calculation = x;
 
 	for (int i = 1; i < n + 1; i++) 
 	{
-		std::cout << "Result at iteration " << i << std::endl;
+		// Implementation of the formula for Tylor series of exp(x) 
+		// with the power and factorial functions calculated dynamically
 		x_calculation = x_calculation * x_calculation;
 		factorial = factorial * i;
-		result = result + x_calculation/ factorial;
+		result = result + x_calculation / factorial;
+
+		// Showing the result at every iteration
+		std::cout << "Result at iteration " << i << std::endl;
 		std::cout << result << std::endl;
 	}
 
@@ -168,20 +179,31 @@ double ValueCalculation::TylorMethod_e(double x, double n)
 	return result;
 }
 
-double ValueCalculation::TylorMethod_e(double x, double n, double precision=0.001)
+double ValueCalculation::TylorMethod_e(double x, double precision=0.001)
 {
+	/// Summary:
+	/// An implementation of the Tylor serie of the function exponent of x with 
+	/// 
+	/// x - choosen x value for the function
+	/// precision - the desired precision
+	/// result - The value of the function at given x with given precision
+	
 	double result = 1;
 	double factorial = 1;
 	double x_calculation = x;
 	double temp;
-	int i;
+	int i = 1;
 
-	for (i = 1; i < n + 1; i++)
+	while(true)
 	{
-		std::cout << "Result at iteration " << i << std::endl;
+		// Implementation of the formula for Tylor series of exp(x) 
+		// with the power and factorial functions calculated dynamically
+		
 		x_calculation = x_calculation * x_calculation;
 		factorial = factorial * i;
 		temp = result + x_calculation / factorial;		
+
+		// Checking if delta is smaller than desired precision
 		if (abs(temp - result) < precision)
 		{
 			result = temp;
@@ -191,7 +213,11 @@ double ValueCalculation::TylorMethod_e(double x, double n, double precision=0.00
 		{
 			result = temp;
 		}
+
+		// Showing the result at every iteration
+		std::cout << "Result at iteration " << i << std::endl;
 		std::cout << result << std::endl;
+		i++;
 	}
 
 	std::cout << "result of exp(x) at x = " << x << "\n" << result << std::endl;

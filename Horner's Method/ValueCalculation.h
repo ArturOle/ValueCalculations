@@ -16,9 +16,8 @@ public:
 	static bool UpperFinder(std::deque<double>& polynominal, double i);
 	static bool LowerFinder(std::deque<double> polynominal, double i);
 
-	static double TylorMethod_e(double x, double n);
-
-	static double TylorMethod_e(double x, double n, double precision);
+	static double TylorMethod_e(double x, int n);
+	static double TylorMethod_e(double x, double precision);
 
 };
 
