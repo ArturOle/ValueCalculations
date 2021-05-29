@@ -18,6 +18,6 @@ int main()
 
 	std::cout << result_horner << std::endl;
 
-	//result_tylor = ValueCalculation::TylorMethod(polynominal, x, x);
+	result_tylor = ValueCalculation::TylorMethod_e(1, 10);
 	return 0;
 }
