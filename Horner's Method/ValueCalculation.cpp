@@ -149,14 +149,16 @@ bool ValueCalculation::LowerFinder(std::deque<double> cpy, double i)
 }
 
 
-double ValueCalculation::TylorMethod(std::deque<double>& polynominal, int x, int n)
+double ValueCalculation::TylorMethod_e(int x, int n)
 {
-	double result = 0;
-
-	for (int i = 0; i < n; i++) 
+	double result = 1;
+	double factorial = 1;
+	for (int i = 1; i < n; i++) 
 	{
-		result = result;
+		x = x * x;
+		factorial = factorial * i;
+		result = result + x / factorial;
 	}
-
-	return 0.0;
+	std::cout << result << std::endl;
+	return result;
 }
