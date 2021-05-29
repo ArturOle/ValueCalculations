@@ -223,7 +223,7 @@ double ValueCalculation::TylorMethod_e(double x, double precision=0.001)
 	}
 
 	std::cout << "result of exp(x) at x = " << x << "\n" << result << std::endl;
-	std::cout << "After " << i << " iterations" << std::endl;
+	std::cout << "After " << i << " iterations\n" << std::endl;
 	return result;
 }
 
