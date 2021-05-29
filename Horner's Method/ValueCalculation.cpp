@@ -40,10 +40,9 @@ float ValueCalculation::HornerPrecision(std::deque<double> polynominal, int x_in
 	while (precision * pow(10, result) >= desired_precision)
 	{
 		--result;
-
 	}
 
-	std::cout << result << std::endl;
+	std::cout << "Precision: 1E" << result << std::endl;
 
 	return precision;
 }
@@ -60,7 +59,7 @@ float ValueCalculation::HornerPrecision(int degree, int x_in, float desired_prec
 		--result;
 	}
 
-	std::cout << result << std::endl;
+	std::cout << "Precision: 1E" << result << std::endl;
 
 	return result;
 }
@@ -101,13 +100,12 @@ std::pair<double, double> ValueCalculation::HornerRange(std::deque<double>& poly
 bool ValueCalculation::UpperFinder(std::deque<double>& polynominal, double i)
 {
 	double beta = polynominal[0];
-	int degree = polynominal.size() - 1;
 
 	// Iterating over polynominal with constant iterator because it's read only
-	for (int it = 1; it < degree; it++)
+	for (auto it = polynominal.cbegin() + 1; it != polynominal.cend(); ++it)
 	{
 		// New value is value times x plus value at it
-		beta = i * beta + polynominal[it];
+		beta = i * beta + *it;
 
 		if (beta < 0)
 		{
@@ -126,10 +124,9 @@ bool ValueCalculation::LowerFinder(std::deque<double> cpy, double i)
 	double alpha;
 
 	// Invert every second term [considering (-1)^n and Wn(-x)]
-	// TODO: optimise the iterator
-	for (int it = 1; it < degree; it = it + 2)
+	for (auto it = cpy.begin() + 1; it < cpy.end()-1; it+=2)
 	{
-		cpy[it] = -cpy[it];
+		*it = -*it;
 	}
 
 	alpha = cpy[0];
@@ -149,20 +146,98 @@ bool ValueCalculation::LowerFinder(std::deque<double> cpy, double i)
 }
 
 
-double ValueCalculation::TylorMethod_e(double x, double n)
+double ValueCalculation::TylorMethod_e(double x, int n)
 {
+	/// Summary:
+	/// An implementation of the Tylor serie of the function exponent of x with 
+	/// 
+	/// x - choosen x value for the function
+	/// n - number of iteration
+	/// result - The value of the function at given x with after given number of iterations
+	
+
 	double result = 1;
 	double factorial = 1;
-	double x_calculation = x;
+	double x_calculation = 1;
 
-	for (int i = 1; i < n+1; i++) 
+	for (int i = 1; i < n + 1; i++) 
 	{
-		std::cout << "Result at iteration " << i << std::endl;
-		x_calculation = x_calculation * x_calculation;
+		// Implementation of the formula for Tylor series of exp(x) 
+		// with the power and factorial functions calculated dynamically
+		x_calculation = x_calculation * x;
 		factorial = factorial * i;
-		result = result + x / factorial;
-		std::cout << result << std::endl;
+		result = result + x_calculation / factorial;
+
+		// Showing the result at every iteration
+		std::cout << "Iteration " << i << ": " << result << std::endl;
 	}
-	std::cout << "result of exp(x) at x = " << x << "\n" <<  result << std::endl;
+
+	std::cout << "Result of exp(x) at x = " << x << " is: " <<  result << "" << std::endl;
 	return result;
+}
+
+
+double ValueCalculation::TylorMethod_e(double x, double precision=0.001)
+{
+	/// Summary:
+	/// An implementation of the Tylor serie of the function exponent of x with 
+	/// 
+	/// x - choosen x value for the function
+	/// precision - the desired precision
+	/// result - The value of the function at given x with given precision
+	
+	
+	double result = 1;
+	double factorial = 1;
+	double x_calculation = 1;
+	double temp;
+	int i = 1;
+
+	while(true)
+	{
+		// Implementation of the formula for Tylor series of exp(x) 
+		// with the power and factorial functions calculated dynamically
+		
+		x_calculation = x_calculation * x;
+		factorial = factorial * i;
+		temp = result + x_calculation / factorial;		
+
+		// Checking if delta is smaller than desired precision
+		if (std::abs(temp - result) < precision)
+		{
+			result = temp;
+			break;
+		}
+		else
+		{
+			result = temp;
+		}
+
+		// Showing the result at every iteration
+		std::cout << "Iteration " << i << ": " << result << std::endl;
+		i++;
+	}
+
+	std::cout << "Result of exp(x) at x = " << x << " is: " << result << ", after " << i << " iterations\n" << std::endl;
+	return result;
+}
+
+
+std::deque<double> ValueCalculation::genereate_powers(int power, double x)
+{
+	double value = 1;
+	std::deque<double> memory_powers;
+	memory_powers.resize(power+1);
+
+	// Iterating over polynominal with constant iterator because it's read only
+	for (int i = 1; i < power; i++)
+	{
+		// New value is value times x
+		value = value * x;
+		memory_powers.push_front(value);
+		std::cout << value << std::endl;
+	}
+
+	memory_powers.shrink_to_fit();
+	return memory_powers;
 }
