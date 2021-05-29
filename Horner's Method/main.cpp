@@ -18,6 +18,6 @@ int main()
 
 	std::cout << result_horner << std::endl;
 
-	result_tylor = ValueCalculation::TylorMethod_e(1, 10);
+	result_tylor = ValueCalculation::TylorMethod_e(1, 10, precision=0.001);
 	return 0;
 }

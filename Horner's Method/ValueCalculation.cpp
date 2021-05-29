@@ -155,14 +155,46 @@ double ValueCalculation::TylorMethod_e(double x, double n)
 	double factorial = 1;
 	double x_calculation = x;
 
-	for (int i = 1; i < n+1; i++) 
+	for (int i = 1; i < n + 1; i++) 
 	{
 		std::cout << "Result at iteration " << i << std::endl;
 		x_calculation = x_calculation * x_calculation;
 		factorial = factorial * i;
-		result = result + x / factorial;
+		result = result + x_calculation/ factorial;
 		std::cout << result << std::endl;
 	}
+
 	std::cout << "result of exp(x) at x = " << x << "\n" <<  result << std::endl;
+	return result;
+}
+
+double ValueCalculation::TylorMethod_e(double x, double n, double precision=0.001)
+{
+	double result = 1;
+	double factorial = 1;
+	double x_calculation = x;
+	double temp;
+	int i;
+
+	for (i = 1; i < n + 1; i++)
+	{
+		std::cout << "Result at iteration " << i << std::endl;
+		x_calculation = x_calculation * x_calculation;
+		factorial = factorial * i;
+		temp = result + x_calculation / factorial;		
+		if (abs(temp - result) < precision)
+		{
+			result = temp;
+			break;
+		}
+		else
+		{
+			result = temp;
+		}
+		std::cout << result << std::endl;
+	}
+
+	std::cout << "result of exp(x) at x = " << x << "\n" << result << std::endl;
+	std::cout << "After " << i << " iterations" << std::endl;
 	return result;
 }

@@ -18,5 +18,7 @@ public:
 
 	static double TylorMethod_e(double x, double n);
 
+	static double TylorMethod_e(double x, double n, double precision);
+
 };
 
