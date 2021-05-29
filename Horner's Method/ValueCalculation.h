@@ -18,6 +18,9 @@ public:
 
 	static double TylorMethod_e(double x, int n);
 	static double TylorMethod_e(double x, double precision);
+	static float TylorError_e(int number_of_iterations);
+
+	static std::deque<double> genereate_powers(int power, double x);
 
 };
 

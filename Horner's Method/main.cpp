@@ -2,6 +2,7 @@
 #include <iostream>
 #include <chrono>
 
+
 int main()
 {
 	std::deque<double> polynominal = { 3, 1, -2, 1, -3, 1 };
@@ -18,6 +19,6 @@ int main()
 
 	std::cout << result_horner << std::endl;
 
-	result_tylor = ValueCalculation::TylorMethod_e(1, precision=0.001);
+	result_tylor = ValueCalculation::TylorMethod_e(-1, 10);
 	return 0;
 }
